@@ -3,11 +3,20 @@
 
 - include: common.yml
 
+- include: enterprise-common.yml
+  when: sensu_install_enterprise and sensu_install_enterprise_dashboard
+
 - include: server.yml
   when: sensu_install_server
 
+- include: enterprise.yml
+  when: sensu_install_enterprise
+
 - include: uchiwa.yml
   when: sensu_install_server and sensu_install_uchiwa
+
+- include: enterprise-dashboard.yml
+  when: sensu_install_enterprise_dashboard
 
 - include: client.yml
   when: sensu_install_client

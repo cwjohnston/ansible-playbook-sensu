@@ -1,0 +1,20 @@
+---
+- name: install apt-transport-https on debian
+  apt: name=apt-transport-https state=present
+
+- name: add the Sensu Enterprise repository key
+  apt_key: url=https://{{ sensu_enterprise_user }}:{{ sensu_enterprise_password }}@enterprise.sensuapp.com/apt/pubkey.gpg
+
+- name: add the Sensu Enterprise repository
+  template:
+    src=sensu-enterprise.list.j2
+    dest=/etc/apt/sources.list.d/sensu-enterprise.list
+    owner=root
+    group=root
+    mode=0640
+    backup=yes
+  register: se_apt_repo
+
+- name: refresh se apt cache
+  apt: update_cache=yes
+  when: se_apt_repo.changed

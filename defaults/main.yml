@@ -5,6 +5,8 @@
 sensu_install_client: true
 sensu_install_server: true
 sensu_install_uchiwa: true
+sensu_install_enterprise: false
+sensu_install_enterprise_dashboard: false
 
 sensu_user:  sensu
 sensu_group: sensu

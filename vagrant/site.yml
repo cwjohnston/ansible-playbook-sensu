@@ -24,6 +24,21 @@
     - redis
     - sensu
 
+- hosts: sensu_enterprise
+  user: vagrant
+  vars:
+    - sensu_install_server: false
+    - sensu_install_uchiwa: false
+    - sensu_install_enterprise: true
+    - sensu_install_enterprise_dashboard: true
+    - sensu_enterprise_user: "{{ lookup('env', 'SENSU_ENTERPRISE_USER') }}"
+    - sensu_enterprise_password:  "{{ lookup('env', 'SENSU_ENTERPRISE_PASSWORD') }}"
+  vars_files:
+    - test-vars.yml
+  roles:
+    - redis
+    - sensu
+
 - hosts: sensu_client
   user: vagrant
   vars:

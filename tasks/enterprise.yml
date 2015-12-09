@@ -1,0 +1,27 @@
+---
+- name: install sensu-enterprise
+  apt: name=sensu-enterprise state=present
+
+- include: server-common.yml
+  
+- name: generate config files
+  template:
+    src={{ item }}.json.j2
+    dest=/etc/sensu/conf.d/{{ item }}.json
+    owner=sensu
+    group=sensu
+    mode=0640
+  with_items:
+    - handlers
+    - redis
+    - api
+    - settings
+    - checks
+  notify:
+    - restart sensu-enterprise
+
+- name: Start sensu-enterprise and make it survive a reboot
+  service:
+    name=sensu-enterprise
+    enabled=yes
+    state=started

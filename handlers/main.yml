@@ -7,6 +7,10 @@
     - api
   when: sensu_install_server
 
+- name: restart sensu-enterprise
+  service: name=sensu-enterprise state=restarted
+  when: sensu_install_enterprise
+
 - name: restart sensu client
   service: name=sensu-client state=restarted
   when: sensu_install_client
@@ -14,3 +18,7 @@
 - name: restart uchiwa service
   service: name=uchiwa state=restarted
   when: sensu_install_uchiwa
+
+- name: restart sensu-enterprise-dashboard service
+  service: name=sensu-enterprise-dashboard state=restarted
+  when: sensu_install_enterprise_dashboard

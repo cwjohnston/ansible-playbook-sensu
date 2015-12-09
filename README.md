@@ -101,6 +101,8 @@ please uses the `sensu_settings` variable, that will generate the
 `sensu_install_client`|Boolean|Determine if we need to install the client part|`true`
 `sensu_install_server`|Boolean|Determine if we need to install the server part|`true`
 `sensu_install_uchiwa`|Boolean|Determine if we need to install the uchiwa. Will only work in `sensu_install_server` is also true|`true`
+`sensu_install_sensu_enterprise`|Boolean|Determine if we need to install sensu-enterprise|`false`
+`sensu_install_sensu_enterprise_dashboard`|Boolean|Determine if we need to install sensu-enterprise-dashboard|`false`
 
 ### General variables
 
@@ -115,6 +117,8 @@ please uses the `sensu_settings` variable, that will generate the
 `sensu_cert_dir`|String|Directory to look for the certificates|`files`
 `sensu_cert_file_name`|String|Filename of the client certificate|`sensu_client_cert.pem`
 `sensu_key_file_name`|String|Filename of the client key|`sensu_client_key.pem`
+`sensu_enterprise_username`|String|Username for Sensu Enterprise package repository|null
+`sensu_enterprise_password`|String|Password for Sensu Enterprise package repository|null
 
 ### Client variables
 
@@ -158,6 +162,12 @@ Weak dependencies on:
 There is some really basic tests with the playbook. It just try to install a
 server with client, a server only, and a client only, on 3 VM:
 
+    $ vagrant up
+
+To build the same configuration using Sensu Enterprise:
+
+    $ export SENSU_ENTERPRISE_USER="your username"
+    $ export SENSU_ENTERPRISE_PASSWORD="your password"
     $ vagrant up
 
 The test depends on the following roles (that are already present in the

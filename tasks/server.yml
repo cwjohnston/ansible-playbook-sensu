@@ -19,33 +19,7 @@
     - api
   when: sensu_server_patch_init_scripts
 
-- name: copy the handlers files
-  copy:
-    src=files/sensu/handlers/
-    dest=/etc/sensu/handlers/
-    owner=sensu
-    group=sensu
-    mode=0750
-
-- name: copy extension files
-  copy:
-    src=files/sensu/extensions/
-    dest=/etc/sensu/extensions/
-    owner=sensu
-    group=sensu
-    mode=0750
-  notify:
-    - restart sensu server
-
-- name: copy plugins files
-  copy:
-    src=files/sensu/plugins/
-    dest=/etc/sensu/plugins/
-    owner=sensu
-    group=sensu
-    mode=0750
-  notify:
-    - restart sensu server
+- include: server-common.yml
 
 - name: generate config files
   template:

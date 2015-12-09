@@ -1,0 +1,20 @@
+---
+- name: install sensu-enterprise-dashboard
+  apt: name=sensu-enterprise-dashboard state=present
+
+- name: create sensu-enterprise-dashboard config file
+  template:
+    src=uchiwa.json.j2
+    dest=/etc/sensu/dashboard.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu-enterprise-dashboard service
+
+- name: Start sensu-enterprise-dashboard and make it survive a reboot
+  service:
+    name=sensu-enterprise-dashboard
+    enabled=yes
+    state=started
